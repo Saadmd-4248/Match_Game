@@ -1,0 +1,203 @@
+body, html {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.frame {
+    width: 500px;
+    height: 800px;
+    position: absolute;
+    border-top: 9px solid transparent;
+    border-left: 4.5px solid transparent;
+    border-right: 4.5px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-radius: 40px;
+    background-color: transparent;
+    animation: borderAnimation 15s linear infinite;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+@keyframes borderAnimation {
+    0% {
+        border-color: red; 
+        box-shadow: 0 0 50px red;
+    }
+    10% {
+        border-color: yellow;
+        box-shadow: 0 0 50px yellow;
+    }
+    20% {
+        border-color: cyan;
+        box-shadow: 0 0 50px cyan;
+    }
+    30% {
+        border-color: blue; 
+        box-shadow: 0 0 50px blue;
+    }
+    40% {
+        border-color: violet; 
+        box-shadow: 0 0 50px violet;
+    }
+    50% {
+        border-color: rgb(225, 250, 0);
+        box-shadow: 0 0 50px rgb(225, 250, 0); 
+    }
+    60% {
+        border-color: rgb(255, 0, 123);
+        box-shadow: 0 0 50px rgb(255, 0, 123);
+    }
+    70% {
+        border-color: gold;
+        box-shadow: 0 0 50px gold;
+    }
+    80% {
+        border-color: magenta;
+        box-shadow: 0 0 50px magenta;
+    }
+    90% {
+        border-color: rgb(255, 187, 0);
+        box-shadow: 0 0 50px rgb(255, 187, 0);
+    }
+    100% {
+        border-color: moccasin;
+        box-shadow: 0 0 50px moccasin;
+    }
+}
+h1 {
+    margin: 20px 0;
+}
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 12px;
+}
+#score{
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+.card {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    perspective: 200px;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 12px 12px 24px #aafba1, -12px -12px 24px #8ef7cf;
+}
+.card-inner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transition: transform 0.4s;
+}
+.card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    color: #333;
+}
+.card-front {
+    background: linear-gradient(145deg, #fc79de, #60ebe2);
+}
+.card-back {
+    background-color: #ffffff;
+    transform: rotateY(180deg);
+    box-shadow: 8px 8px 16px #918f8f, -8px -8px 16px #ffffff;
+}
+.card.star .card-inner {
+    animation: blast 0.5s forwards, blink 1s infinite alternate;
+}
+@keyframes blast {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.5); }
+    100% { transform: scale(0); }
+}
+@keyframes blink {
+    0% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+@media (max-width: 576px) {
+    .frame {
+        width: 380px;
+        height: 700px;
+        padding: 30px;
+    }
+    .game-container {
+        display: grid;
+        grid-template-columns: repeat(4, 90px);
+        grid-template-rows: repeat(4, 90px);
+        gap: 10px;
+    }
+    .card {
+        width: 90px;
+        height: 90px;
+    
+    }
+}
+@media (max-width: 414px) {
+    .frame {
+        width: 280px;
+        height: 650px;
+        padding: 25px;
+    }
+    .game-container {
+        display: grid;
+        grid-template-columns: repeat(4, 70px);
+        grid-template-rows: repeat(4, 70px);
+        gap: 10px;
+    }
+    .card {
+        width: 70px;
+        height: 70px;
+    
+    }
+    .card-front {
+        font-size: 25px;
+    }
+}
+@media (max-width: 360px) {
+    .frame {
+        width: 250px;
+        height: 560px;
+        padding: 25px;
+    }
+    .game-container {
+        display: grid;
+        grid-template-columns: repeat(4, 60px);
+        grid-template-rows: repeat(4, 60px);
+        gap: 7px;
+    }
+    .card {
+        width: 60px;
+        height: 60px;
+    
+    }
+    .card-front {
+        font-size: 20px;
+    }
+}
