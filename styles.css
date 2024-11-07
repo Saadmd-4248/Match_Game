@@ -143,8 +143,8 @@ h1 {
 }
 @media (max-width: 576px) {
     .frame {
-        width: 380px;
-        height: 700px;
+        width: 75%;
+        height: 71%;
         padding: 30px;
     }
     .game-container {
@@ -159,10 +159,10 @@ h1 {
     
     }
 }
-@media (max-width: 414px) {
+@media (max-width: 450px) {
     .frame {
-        width: 280px;
-        height: 650px;
+        width: 75%;
+        height: 70%;
         padding: 25px;
     }
     .game-container {
@@ -182,8 +182,8 @@ h1 {
 }
 @media (max-width: 360px) {
     .frame {
-        width: 250px;
-        height: 560px;
+        width: 75%;
+        height: 65%;
         padding: 25px;
     }
     .game-container {

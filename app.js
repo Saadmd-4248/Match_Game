@@ -1,4 +1,4 @@
-var images = ['🍎', '🍌', '🍒', '🍇', '🍉', '🍓', '🍊', '🍍',];
+var images = ['🍎', '🍌', '🍒', '🍇', '🍉', '🍓', '🍊', '🍍'];
 cardArray = [...images, ...images];
 firstCard = null;
 secondCard = null;
@@ -7,15 +7,17 @@ matchedPairs = 0;
 var gameContainer = document.getElementById('gameContainer');
 var scoreValue = document.getElementById('scoreValue');
 var matchSound = document.getElementById('matchSound');
+var cardClickDisabled = false;
 function shuffle(array) {
-    for ( i = array.length - 1; i > 0; i--) {
+    for (let i = array.length - 1; i > 0; i--) {
         var randomcards = Math.floor(Math.random() * (i + 1));
         [array[i], array[randomcards]] = [array[randomcards], array[i]];
     }
     return array;
 }
 function createCards() {
-    gameContainer.innerHTML ='';
+    gameContainer.innerHTML = '';
+    scoreValue.textContent = score;
     shuffle(cardArray).forEach((image, index) => {
         var card = document.createElement('div');
         card.classList.add('card');
@@ -33,13 +35,13 @@ function createCards() {
         cardInner.appendChild(backFace);
         card.appendChild(cardInner);
         card.addEventListener('click', function() {
-            flipCard(this); // Flip the card on click
+            flipCard(this);
         });
         gameContainer.appendChild(card);
     });
 }
 function flipCard(card) {
-    if (firstCard && secondCard) return;
+    if (firstCard && secondCard || cardClickDisabled || firstCard === card) return;
     card.classList.add('flipped');
     if (!firstCard) {
         firstCard = card;
@@ -49,37 +51,38 @@ function flipCard(card) {
     }
 }
 function checkForMatch() {
+    cardClickDisabled = true;
     if (firstCard.dataset.image === secondCard.dataset.image) {
         matchSound.play();
         score++;
         matchedPairs++;
         scoreValue.textContent = score;
+        firstCard.classList.add('star');
+        secondCard.classList.add('star');
         setTimeout(() => {
-            firstCard.classList.add('star');
-            secondCard.classList.add('star');
-        }, 200);
-        setTimeout(() => {
-            firstCard.style.visibility = 'hidden';
-            secondCard.style.visibility = 'hidden';
+            firstCard.remove();
+            secondCard.remove();
             resetCards();
+            cardClickDisabled = false;
             if (matchedPairs === cardArray.length / 2) {
+                setTimeout(() => alert("Congratulations! You've matched all pairs!"), 500);
                 setTimeout(resetGame, 1000);
             }
         }, 1000);
-    } else {
+        } else {
         setTimeout(() => {
             firstCard.classList.remove('flipped');
             secondCard.classList.remove('flipped');
             resetCards();
+            cardClickDisabled = false;
         }, 1000);
     }
 }
 function resetCards() {
     firstCard = null;
     secondCard = null;
-}
-function resetGame() {
-    alert("You Won! Starting a new game?");
+}function resetGame() {
+    alert("Starting a new game?");
     matchedPairs = 0;
     score = 0;
     scoreValue.textContent = score;
